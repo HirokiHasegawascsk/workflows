@@ -8,26 +8,26 @@ jobs:
     name: Deploy Cloud Workflow
     runs-on: ubuntu-18.04
     steps:
-    # リポジトリをチェックアウト
-    - name: 'Checkout the repository'
-      uses: actions/checkout@v2
+      # リポジトリをチェックアウト
+      - name: 'Checkout the repository'
+        uses: actions/checkout@v2
 
-    # GCP 認証
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      # GCP 認証
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-    # gcloud コマンドの設定
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v0'
+      # gcloud コマンドの設定
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
 
-    # workflowsのデプロイ
-    - name: Use gcloud CLI
-      run: |
-        gcloud workflows deploy myWorkflowFromGitHub \
-        --location us-central1 \
-        --source myFirstWorkflow.workflows.yaml \
-        --project ${{ secrets.GCP_PROJECT_ID }}\
-        --labels "commit-sha=${{ github.sha }}" \
-        --service-account sa-workflow-nakagome@kaigofika-poc01.iam.gserviceaccount.com
+      # workflowsのデプロイ
+      - name: Use gcloud CLI
+        run: |
+          gcloud workflows deploy myWorkflowFromGitHub \
+          --location us-central1 \
+          --source myFirstWorkflow.workflows.yaml \
+          --project ${{ secrets.GCP_PROJECT_ID }}\
+          --labels "commit-sha=${{ github.sha }}" \
+          --service-account sa-workflow-nakagome@kaigofika-poc01.iam.gserviceaccount.com
