@@ -30,4 +30,4 @@ jobs:
         --source myFirstWorkflow.workflows.yaml \
         --project ${{ secrets.GCP_PROJECT_ID }}\
         --labels "commit-sha=${{ github.sha }}" \
-        --service-account my-wf-service-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+        --service-account sa-workflow-nakagome@kaigofika-poc01.iam.gserviceaccount.com
