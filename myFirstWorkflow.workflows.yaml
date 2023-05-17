@@ -1,0 +1,23 @@
+# This is a sample workflow to test or replace with your source code.
+#
+# This workflow passes the current day of the week to the Wikipedia API and
+# returns a list of related Wikipedia articles.
+# The current day of the week (in GMT) is retrieved from a Cloud Function
+# unless you input your own search term (for example, {"searchTerm": "Monday"}).
+# deploy by hasegawa
+main:
+    params: [args]
+    steps:
+    - call-cr-api1:
+        call: http.get
+        args: 
+            url: https://fika-api1-nakagome-wsgwmfbvhq-uc.a.run.app
+            headers:
+                auth0-token: ${default(map.get(args, "auth0-token"), "")}
+            auth:
+                type: OIDC
+                audience: https://fika-api1-nakagome-wsgwmfbvhq-uc.a.run.app
+        result: message1
+    - return_value:
+        return: ${message1.body}
+        
